@@ -21,6 +21,11 @@ bench set-config -g redis_queue redis://redis-queue:6379
 echo "Set redis_socketio to redis://redis-socketio:6379"
 bench set-config -g redis_socketio redis://redis-socketio:6379
 
+# Install payements app
+bench get-app payments
+
+bench get-app --branch version-14 erpnext
+
 # Create custom.localhost site
 echo "Create http://custom.localhost:8000 site"
 bench new-site \
@@ -28,3 +33,7 @@ bench new-site \
   --db-root-password=123 \
   --admin-password=admin \
   custom.localhost
+
+bench use custom.localhost
+bench --site custom.localhost install --app erpnext
+bench set-config developer_mode 1
